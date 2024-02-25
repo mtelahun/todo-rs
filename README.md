@@ -1,2 +1,2 @@
 # ToDo-rs
-A rust backend for a simple ToDo application written in Rust using a Clean Architecture and CQRS.
+A backend for a simple ToDo application written in Rust using a Clean Architecture, CQRS and Axum.
