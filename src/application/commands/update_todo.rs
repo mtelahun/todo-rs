@@ -40,17 +40,14 @@ pub async fn update_todo(
                 updatedAt: Some(datetime),
             };
 
-            let todo_response = repository
-                .update_todo(payload)
-                .await
-                .unwrap();
+            let todo_response = repository.update_todo(payload).await.unwrap();
             let json_response = serde_json::json!({
                 "status": "success",
                 "data": todo_response,
             });
 
             Ok((StatusCode::OK, Json(json_response)))
-        },
+        }
         Err(_) => {
             let error_response = serde_json::json!({
                 "status": "error",

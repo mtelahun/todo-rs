@@ -7,13 +7,10 @@ pub async fn delete_todo(
 ) -> Result<impl IntoResponse, (StatusCode, Json<serde_json::Value>)> {
     let repository = TodoRepository::new();
     let id = id.to_string();
-    if let Ok(_) = repository.get_by_id(id.clone()).await {
-        let _ = repository
-            .delete_todo(id.clone())
-            .await
-            .unwrap();
+    if repository.get_by_id(id.clone()).await.is_ok() {
+        let _ = repository.delete_todo(id.clone()).await.unwrap();
 
-        return Ok(StatusCode::NO_CONTENT)
+        return Ok(StatusCode::NO_CONTENT);
     }
     let error_response = serde_json::json!({
         "status": "error",
