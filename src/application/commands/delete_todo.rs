@@ -1,14 +1,20 @@
-use axum::{extract::Path, http::StatusCode, response::IntoResponse, Json};
+use axum::{
+    extract::{Path, State},
+    http::StatusCode,
+    response::IntoResponse,
+    Json,
+};
 
-use crate::infrastructure::data::repositories::todo::TodoRepository;
+use crate::{infrastructure::data::repositories::todo::TodoRepository, state::AppState};
 
 pub async fn delete_todo(
     Path(id): Path<String>,
+    State(state): State<AppState>,
 ) -> Result<impl IntoResponse, (StatusCode, Json<serde_json::Value>)> {
     let repository = TodoRepository::new();
     let id = id.to_string();
-    if repository.get_by_id(id.clone()).await.is_ok() {
-        let _ = repository.delete_todo(id.clone()).await.unwrap();
+    if repository.get_by_id(id.clone(), &state).await.is_ok() {
+        let _ = repository.delete_todo(id.clone(), &state).await.unwrap();
 
         return Ok(StatusCode::NO_CONTENT);
     }

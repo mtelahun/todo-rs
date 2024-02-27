@@ -3,16 +3,19 @@ use axum::{
     Router,
 };
 
-use crate::application::{
-    commands::{create_todo::create_todo, delete_todo::delete_todo, update_todo::update_todo},
-    queries::{get_all_todos::get_all_todos, get_todo_by_id::get_todo_by_id},
+use crate::{
+    application::{
+        commands::{create_todo::create_todo, delete_todo::delete_todo, update_todo::update_todo},
+        queries::{get_all_todos::get_all_todos, get_todo_by_id::get_todo_by_id},
+    },
+    state::AppState,
 };
 
 use self::health_check::health_check_handler;
 
 pub mod health_check;
 
-pub fn create_router() -> Router {
+pub fn create_router() -> Router<AppState> {
     Router::new()
         .route("/api/health_check", get(health_check_handler))
         .route("/api/todos", post(create_todo).get(get_all_todos))

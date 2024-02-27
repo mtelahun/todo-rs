@@ -1,8 +1,16 @@
-use axum::{extract::Path, http::StatusCode, response::IntoResponse, Json};
+use axum::{
+    extract::{Path, State},
+    http::StatusCode,
+    response::IntoResponse,
+    Json,
+};
 use chrono::Local;
 use serde::{Deserialize, Serialize};
 
-use crate::{domain::models::todo::ToDo, infrastructure::data::repositories::todo::TodoRepository};
+use crate::{
+    domain::models::todo::ToDo, infrastructure::data::repositories::todo::TodoRepository,
+    state::AppState,
+};
 
 #[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct UpdateTodoRequest {
@@ -13,11 +21,12 @@ pub struct UpdateTodoRequest {
 
 pub async fn update_todo(
     Path(id): Path<String>,
+    State(state): State<AppState>,
     Json(body): Json<UpdateTodoRequest>,
 ) -> Result<impl IntoResponse, (StatusCode, Json<serde_json::Value>)> {
     let repository = TodoRepository::new();
 
-    match repository.get_by_id(id.clone()).await {
+    match repository.get_by_id(id.clone(), &state).await {
         Ok(todo) => {
             let datetime = Local::now();
             let title = body.title.to_owned();
@@ -40,7 +49,7 @@ pub async fn update_todo(
                 updatedAt: Some(datetime),
             };
 
-            let todo_response = repository.update_todo(payload).await.unwrap();
+            let todo_response = repository.update_todo(payload, &state).await.unwrap();
             let json_response = serde_json::json!({
                 "status": "success",
                 "data": todo_response,

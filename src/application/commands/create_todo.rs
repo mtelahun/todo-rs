@@ -1,4 +1,4 @@
-use axum::{http::StatusCode, response::IntoResponse, Json};
+use axum::{extract::State, http::StatusCode, response::IntoResponse, Json};
 use chrono::Local;
 use surreal_id::NewId;
 
@@ -8,14 +8,16 @@ use crate::{
         todo_id::{RecordId, TodoId},
     },
     infrastructure::data::repositories::todo::TodoRepository,
+    state::AppState,
 };
 
 pub async fn create_todo(
+    State(state): State<AppState>,
     Json(mut body): Json<ToDo>,
 ) -> Result<impl IntoResponse, (StatusCode, Json<serde_json::Value>)> {
     let repository = TodoRepository::new();
 
-    if let Ok(todo) = repository.get_by_title(body.title.clone()).await {
+    if let Ok(todo) = repository.get_by_title(body.title.clone(), &state).await {
         let json_response = serde_json::json!({
             "status": "error",
             "message": "Todo already exists",
@@ -32,7 +34,7 @@ pub async fn create_todo(
     body.updatedAt = Some(datetime);
 
     let todo = body.to_owned();
-    let todo = repository.create_todo(todo).await.unwrap()[0].to_owned();
+    let todo = repository.create_todo(todo, &state).await.unwrap()[0].to_owned();
 
     let json_reponse = serde_json::json!({
         "status": "success".to_string(),

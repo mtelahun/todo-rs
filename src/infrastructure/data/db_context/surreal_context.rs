@@ -7,15 +7,22 @@ use surrealdb::{
 
 pub static DB: Lazy<Surreal<Client>> = Lazy::new(Surreal::init);
 
-pub async fn connect_db() -> Result<()> {
-    DB.connect::<Ws>("localhost:8000").await?;
-    let _ = DB
+pub async fn connect_db(
+    addr: &str,
+    user: &str,
+    pass: &str,
+    ns: &str,
+    dbname: &str,
+) -> Result<Surreal<Client>> {
+    let db = Surreal::new::<Ws>(addr).await?;
+    // DB.connect::<Ws>(addr).await?;
+    let _ = db
         .signin(Root {
-            username: "root",
-            password: "root",
+            username: user,
+            password: pass,
         })
-        .await;
-    DB.use_ns("todo").use_db("todo").await?;
+        .await?;
+    db.use_ns(ns).use_db(dbname).await?;
 
-    Ok(())
+    Ok(db)
 }
