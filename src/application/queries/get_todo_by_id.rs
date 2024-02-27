@@ -9,7 +9,7 @@ pub async fn get_todo_by_id(
     let id = id.to_string();
 
     if let Ok(todo) = repository.get_by_id(id.clone()).await {
-        return Ok(Json(todo))
+        return Ok(Json(todo));
     }
     let error_response = serde_json::json!({
         "status": "error",
