@@ -14,14 +14,6 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
-    services:
-      surrealdb:
-        image: surrealdb/surrealdb:latest
-        env:
-          DB_USER: root
-          DB_PASSWORD: root
-        ports:
-          - 8000:8000
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -40,7 +32,13 @@ jobs:
           profile: minimal
           toolchain: stable
           override: true
-
+      - name: Start SurrealDB
+        uses: jvllmr/surrealdb-action@2.0.0
+        with:
+          surrealdb-version: latest
+          surrealdb-port: 8000
+          surrealdb-user: root
+          surrealdb-password: root
       - name: Run cargo test
         uses: actions-rs/cargo@v1
         with:
@@ -79,14 +77,6 @@ jobs:
   coverage:
     name: Code coverage
     runs-on: ubuntu-latest
-    services:
-      surrealdb:
-        image: surrrealdb/surrealdb:latest
-        env:
-          DB_USER: root
-          DB_PASSWORD: root
-        ports:
-          - 8000:8000
 
     steps:
       - name: Checkout repository
@@ -97,6 +87,14 @@ jobs:
         with:
           toolchain: stable
           override: true
+
+      - name: Start SurrealDB
+        uses: jvllmr/surrealdb-action@2.0.0
+        with:
+          surrealdb-version: latest
+          surrealdb-port: 8000
+          surrealdb-user: root
+          surrealdb-password: root
 
       - name: Run cargo-tarpaulin
         uses: actions-rs/tarpaulin@v0.1
