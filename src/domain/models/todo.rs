@@ -6,7 +6,7 @@ use crate::domain::todo_id::TodoId;
 pub const TBL_TODO: &str = "todo";
 
 #[allow(non_snake_case)]
-#[derive(Debug, Deserialize, Serialize, Clone)]
+#[derive(Debug, Deserialize, Serialize, Clone, PartialEq, Eq)]
 pub struct ToDo {
     pub id: Option<TodoId>,
     pub title: String,
