@@ -15,7 +15,7 @@ pub async fn serve(listener: TcpListener, app: Router) -> Result<(), std::io::Er
 pub async fn build(bind_address: Option<String>) -> (Router<AppState>, TcpListener) {
     let router = get_app().await;
 
-    let mut addr = format!("0.0.0.0:{}", 8080);
+    let mut addr = format!("127.0.0.1:{}", 8080);
     if bind_address.is_some() {
         addr = bind_address.unwrap();
     }
