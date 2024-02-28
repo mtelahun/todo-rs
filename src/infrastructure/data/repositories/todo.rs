@@ -57,7 +57,7 @@ impl TodoRepository {
     pub async fn update_todo(&self, content: ToDo, state: &AppState) -> Result<ToDo, Error> {
         let db = state.db.write().await;
         let record = db
-            .update((&self.table, content.id.unwrap()))
+            .update((&self.table, content.id.clone().unwrap()))
             .content(content)
             .await?
             .unwrap();

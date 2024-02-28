@@ -1,4 +1,4 @@
-use std::net::SocketAddr;
+use std::{net::SocketAddr, time::Duration};
 
 use surrealdb::{engine::remote::ws::Client, Surreal};
 use todo_rs::{
@@ -6,8 +6,7 @@ use todo_rs::{
     startup::{build, serve},
     state::AppState,
 };
-
-use crate::utils::connect_to_db;
+use uuid::Uuid;
 
 #[derive(Debug)]
 pub struct TestState {
@@ -18,18 +17,22 @@ pub struct TestState {
 
 impl TestState {
     pub async fn new() -> Self {
-        let (app, listener) = build(None).await;
-        let app_address = listener.local_addr().unwrap();
-        let db = connect_db("http://127.0.0.1:8000/", "root", "root", "test", "todo")
+        let dbname = format!("{}", Uuid::new_v4());
+        let db = connect_db("127.0.0.1:8000", "root", "root", "test", &dbname)
             .await
             .expect("failed to connect to database");
-        let state = AppState::new(db);
+        let state = AppState::new(db.clone());
+        let (app, listener) = build(Some("127.0.0.1:0".into())).await;
+        let app_address = listener.local_addr().unwrap();
         let app = app.with_state(state);
-        std::thread::spawn(|| async move {
+        tokio::task::spawn(async {
             serve(listener, app)
                 .await
                 .expect("failed to launch the application");
         });
+
+        // Give the app time to launch and listen for traffic
+        tokio::time::sleep(Duration::from_millis(500)).await;
 
         let api_client = reqwest::Client::builder()
             .redirect(reqwest::redirect::Policy::none())
@@ -39,9 +42,7 @@ impl TestState {
         Self {
             app_address,
             api_client,
-            db: connect_to_db()
-                .await
-                .expect("failed to get db for test state"),
+            db,
         }
     }
 }

@@ -1,12 +1,10 @@
 use axum::{extract::State, http::StatusCode, response::IntoResponse, Json};
 use chrono::Local;
 use surreal_id::NewId;
+use uuid::Uuid;
 
 use crate::{
-    domain::{
-        models::todo::ToDo,
-        todo_id::{RecordId, TodoId},
-    },
+    domain::{models::todo::ToDo, todo_id::TodoId},
     infrastructure::data::repositories::todo::TodoRepository,
     state::AppState,
 };
@@ -28,7 +26,7 @@ pub async fn create_todo(
     }
 
     let datetime = Local::now();
-    body.id = Some(TodoId::new(RecordId::new().to_string()).unwrap());
+    body.id = Some(TodoId::new(Uuid::new_v4().to_string()).unwrap());
     body.completed = Some(false);
     body.createdAt = Some(datetime);
     body.updatedAt = Some(datetime);
