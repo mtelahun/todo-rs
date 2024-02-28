@@ -1,42 +1,14 @@
-use serde::{Deserialize, Serialize};
 use surreal_id::NewId;
-use todo_rs::domain::models::todo::ToDo;
 
 use crate::test_state::TestState;
-
-#[derive(Clone, Debug, Serialize)]
-struct CreatePost {
-    title: String,
-    content: String,
-}
-
-#[derive(Clone, Debug, Deserialize)]
-pub struct CreateResponse {
-    #[allow(dead_code)]
-    status: String,
-    data: ToDo,
-}
 
 #[tokio::test]
 async fn delete_happy_path() {
     // Arrange
     let state = TestState::new().await;
-    let json_data = serde_json::json!(CreatePost {
-        title: "My first to-do".to_string(),
-        content: "The content of my first to-do".to_string(),
-    });
-    let response = state
-        .api_client
-        .post(format!("http://{}/api/todos", state.app_address))
-        .json(&json_data)
-        .send()
-        .await
-        .expect("failed to send request to api end-point");
-    assert_eq!(response.status(), 201, "successfull POST response");
-    let response_json = response
-        .json::<CreateResponse>()
-        .await
-        .expect("failed to deserialize response");
+    let response_json = state
+        .create_todo("My first to-do", "The content of my first to-do")
+        .await;
     let todo_id = response_json.data.id.unwrap();
 
     // Act
