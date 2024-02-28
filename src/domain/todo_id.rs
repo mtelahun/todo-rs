@@ -4,7 +4,7 @@ use surrealdb::opt::RecordId;
 
 use super::models::todo::TBL_TODO;
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Eq)]
 pub struct TodoId(RecordId);
 
 impl NewId for TodoId {

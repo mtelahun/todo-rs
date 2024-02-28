@@ -29,6 +29,13 @@ pub struct CreateResponse {
     pub data: ToDo,
 }
 
+#[derive(Debug, Deserialize)]
+struct GetResponse {
+    status: String,
+    results: usize,
+    todos: Vec<ToDo>,
+}
+
 impl TestState {
     pub async fn new() -> Self {
         let dbname = format!("{}", Uuid::new_v4());
@@ -79,5 +86,31 @@ impl TestState {
             .json::<CreateResponse>()
             .await
             .expect("failed to deserialize response")
+    }
+
+    /// Gets all the To-Do records in the app.
+    ///
+    /// # Returns
+    /// A tuple containg the status of the request, the number of results, and a vector of ToDos.
+    pub async fn get_all_todos(&self) -> (String, usize, Vec<ToDo>) {
+        let response = self
+            .api_client
+            .get(format!("http://{}/api/todos", self.app_address,))
+            .send()
+            .await
+            .expect("failed to delete todo");
+        let response_status = response.status();
+        assert_eq!(response_status, 200, "successfull GET response");
+
+        let json_response = response
+            .json::<GetResponse>()
+            .await
+            .expect("failed to deserialize response");
+
+        (
+            json_response.status,
+            json_response.results,
+            json_response.todos,
+        )
     }
 }
