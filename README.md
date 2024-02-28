@@ -5,7 +5,7 @@
 
 A backend for a simple ToDo application written in Rust using a Clean Architecture, CQRS and Axum.
 
-This project started as a tutorial project for using [SurrealDB](https:://github.com/surrealdb/surrealdb). I initially followed along this [two](https://blog.devgenius.io/creating-an-api-with-rust-clean-architecture-axum-and-surrealdb-2a95b1b72e0f) [part](https://blog.devgenius.io/creating-an-api-with-rust-clean-architecture-cqrs-axum-and-surrealdb-part-2-99a48b2d10bc) tutorial. However, after implementing the tutorial there were some things about it that I wasn't very happy with, like:
+This project started as a tutorial project for using [SurrealDB](https://github.com/surrealdb/surrealdb). I initially followed along this [two](https://blog.devgenius.io/creating-an-api-with-rust-clean-architecture-axum-and-surrealdb-2a95b1b72e0f) [part](https://blog.devgenius.io/creating-an-api-with-rust-clean-architecture-cqrs-axum-and-surrealdb-part-2-99a48b2d10bc) tutorial. However, after implementing the tutorial there were some things about it that I wasn't very happy with, like:
 
     * using literal strings as Ids
     * not being Idiomatic enough
