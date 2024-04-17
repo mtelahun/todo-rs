@@ -7,7 +7,10 @@ use todo_rs::infrastructure::data::db_context::surreal_context::connect_db;
 
 #[tokio::main]
 async fn main() {
-    let db = connect_db("127.0.0.1:8000", "root", "root", "test", "todo")
+    let db_host = std::env::var("DATABASE_HOST").unwrap_or("127.0.0.1".into());
+    let db_port = std::env::var("DATABASE_PORT").unwrap_or("8000".into());
+    let db_url = format!("{}:{}", db_host, db_port);
+    let db = connect_db(&db_url, "root", "root", "test", "todo")
         .await
         .expect("failed to connect to database");
     let state = AppState::new(db);
