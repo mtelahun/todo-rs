@@ -2,6 +2,15 @@
 name = "todo-rs"
 version = "0.1.0"
 edition = "2021"
+authors = ["Michael Telahun <michael.telahun@dindin.et>"]
+description = "todo-rs: a simple ToDo application"
+repository = "https://github.com/mtelahun/todo-rs/"
+
+[package.metadata.wix]
+upgrade-guid = "ABE6628A-74FA-464C-A39D-239C62D9D821"
+path-guid = "F5AB8209-E58B-4407-8BBD-7F8B0C3A95C8"
+license = false
+eula = false
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -18,3 +27,23 @@ uuid = { version = "1.7.0", features = ["v4", "serde", "fast-rng"] }
 
 [dev-dependencies]
 reqwest = { version = "0.11.24", features = ["json"] }
+
+# The profile that 'cargo dist' will build with
+[profile.dist]
+inherits = "release"
+lto = "thin"
+
+# Config for 'cargo dist'
+[workspace.metadata.dist]
+# The preferred cargo-dist version to use in CI (Cargo.toml SemVer syntax)
+cargo-dist-version = "0.13.2"
+# The installers to generate for each app
+installers = ["shell", "msi"]
+# Target platforms to build apps for (Rust target-triple syntax)
+targets = ["aarch64-apple-darwin", "x86_64-apple-darwin", "x86_64-unknown-linux-gnu", "x86_64-pc-windows-msvc"]
+# CI backends to support
+ci = ["github"]
+# Publish jobs to run in CI
+pr-run-mode = "plan"
+# Whether to install an updater program
+install-updater = false
