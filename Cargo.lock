@@ -3122,9 +3122,9 @@ checksum = "81cdd64d312baedb58e21336b31bc043b77e01cc99033ce76ef539f78e965ebc"
 
 [[package]]
 name = "surreal-id"
-version = "1.0.0"
+version = "1.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "94b04bb7a76ab625bd9c1ebfaff295d233d14462c3dd662fc8de37da518f71a9"
+checksum = "267157d7e2a05bd482223fdfecc5b0c5d58aef43a09e3cdce6cb11d64d50552f"
 dependencies = [
  "surrealdb",
  "thiserror",
