@@ -103,7 +103,7 @@ jobs:
           args: '--ignore-tests'
       
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v5.0.4
+        uses: codecov/codecov-action@v5.0.7
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           slug: mtelahun/todo-rs
