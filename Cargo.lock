@@ -4075,9 +4075,9 @@ dependencies = [
 
 [[package]]
 name = "surrealdb"
-version = "2.1.0"
+version = "2.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "db4a661389d3422f29d675d5b079630b3f133377dec47135cb12f6bf4214954b"
+checksum = "ee57d04ccd8ec9d51c635a12996085abfe73e86adc05d363b16ee47191ddef1f"
 dependencies = [
  "arrayvec",
  "async-channel 2.3.1",
@@ -4100,7 +4100,7 @@ dependencies = [
  "serde",
  "serde-content",
  "serde_json",
- "surrealdb-core 2.1.0",
+ "surrealdb-core 2.1.2",
  "thiserror",
  "tokio",
  "tokio-tungstenite 0.23.1",
@@ -4184,9 +4184,9 @@ dependencies = [
 
 [[package]]
 name = "surrealdb-core"
-version = "2.1.0"
+version = "2.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "62bf88854d4f929b4f5e1a1027a79b3f2d0799b8d5ac646682efabe7a0b27995"
+checksum = "83f24702939c38dee448eb3958ffdc4d9b37aad84122fef3bcc712488213bf1f"
 dependencies = [
  "addr",
  "ahash 0.8.11",
@@ -4523,7 +4523,7 @@ dependencies = [
  "serde",
  "serde_json",
  "surreal-id",
- "surrealdb 2.1.0",
+ "surrealdb 2.1.2",
  "tokio",
  "tower-http",
  "uuid",
