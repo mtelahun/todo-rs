@@ -3734,9 +3734,9 @@ checksum = "cd0b0ec5f1c1ca621c432a25813d8d60c88abe6d3e08a3eb9cf37d97a0fe3d73"
 
 [[package]]
 name = "serde"
-version = "1.0.225"
+version = "1.0.226"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fd6c24dee235d0da097043389623fb913daddf92c76e9f5a1db88607a0bcbd1d"
+checksum = "0dca6411025b24b60bfa7ec1fe1f8e710ac09782dca409ee8237ba74b51295fd"
 dependencies = [
  "serde_core",
  "serde_derive",
@@ -3753,18 +3753,18 @@ dependencies = [
 
 [[package]]
 name = "serde_core"
-version = "1.0.225"
+version = "1.0.226"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "659356f9a0cb1e529b24c01e43ad2bdf520ec4ceaf83047b83ddcc2251f96383"
+checksum = "ba2ba63999edb9dac981fb34b3e5c0d111a69b0924e253ed29d83f7c99e966a4"
 dependencies = [
  "serde_derive",
 ]
 
 [[package]]
 name = "serde_derive"
-version = "1.0.225"
+version = "1.0.226"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0ea936adf78b1f766949a4977b91d2f5595825bd6ec079aa9543ad2685fc4516"
+checksum = "8db53ae22f34573731bafa1db20f04027b2d25e02d8205921b569171699cdb33"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -4165,9 +4165,9 @@ dependencies = [
 
 [[package]]
 name = "surrealdb"
-version = "2.3.9"
+version = "2.3.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3c1d664a24b1f927ddf1dcbd1c5d666cbd0ec293f2b13fc9b38fd9d960b34203"
+checksum = "0b7bfcb971a0d8a1e18e18c1a2a4cdde67939328c950becb166cd6aa01ad9a69"
 dependencies = [
  "arrayvec",
  "async-channel 2.3.1",
@@ -4191,7 +4191,7 @@ dependencies = [
  "serde",
  "serde-content",
  "serde_json",
- "surrealdb-core 2.3.9",
+ "surrealdb-core 2.3.10",
  "thiserror 1.0.64",
  "tokio",
  "tokio-tungstenite 0.23.1",
@@ -4275,9 +4275,9 @@ dependencies = [
 
 [[package]]
 name = "surrealdb-core"
-version = "2.3.9"
+version = "2.3.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d41e466b83f9ac7ed962abdb89afc3e8cbd64f30a5347a1de6881d5f8bf9aab5"
+checksum = "b1f5919eecece41e95b2ce71e94d73f3b6d0b9360c5d9023fe609225adc57b1a"
 dependencies = [
  "addr",
  "ahash 0.8.11",
@@ -4651,7 +4651,7 @@ dependencies = [
  "serde",
  "serde_json",
  "surreal-id",
- "surrealdb 2.3.9",
+ "surrealdb 2.3.10",
  "tokio",
  "tower-http",
  "uuid",
