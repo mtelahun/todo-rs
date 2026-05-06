@@ -22,7 +22,7 @@ serde_json = "1.0.149"
 surreal-id = "1.0.1"
 surrealdb = "3.0.5"
 tokio = { version = "1.52.2", features = ["macros", "rt-multi-thread", "net"] }
-tower-http = { version = "0.6.8", features = ["cors"] }
+tower-http = { version = "0.6.9", features = ["cors"] }
 uuid = { version = "1.23.1", features = ["v4", "serde", "fast-rng"] }
 
 [dev-dependencies]
