@@ -20,7 +20,7 @@ chrono = { version = "0.4.44", features = ["serde"] }
 serde = { version = "1.0.228", features = ["derive"] }
 serde_json = "1.0.150"
 surreal-id = "1.0.1"
-surrealdb = "3.0.5"
+surrealdb = "3.1.0"
 tokio = { version = "1.52.3", features = ["macros", "rt-multi-thread", "net"] }
 tower-http = { version = "0.6.11", features = ["cors"] }
 uuid = { version = "1.23.1", features = ["v4", "serde", "fast-rng"] }
