@@ -26,7 +26,7 @@ tower-http = { version = "0.6.11", features = ["cors"] }
 uuid = { version = "1.23.1", features = ["v4", "serde", "fast-rng"] }
 
 [dev-dependencies]
-reqwest = { version = "0.13.3", features = ["json"] }
+reqwest = { version = "0.13.4", features = ["json"] }
 
 # The profile that 'cargo dist' will build with
 [profile.dist]
